@@ -1,16 +1,17 @@
 import { NextResponse } from "next/server";
 import uWaterloo from "./campus";
-import { dijkstra } from "./djikstra";
+import shortestPath from "./djikstra";
 
 export async function POST(req) {
   const body = await req.json();
-  const result = dijkstra(uWaterloo, body.nodeA, body.nodeB);
-  if (result.path.length === 0) {
+  console.log(body);
+  const result = shortestPath(uWaterloo, body.nodeA, body.nodeB);
+  console.log(result);
+  if (result.length === 0) {
     return NextResponse.json({ path: "no path found" });
   } else {
     return NextResponse.json({
-      path: result.path,
-      distance: `${result.distance}m`,
+      path: result,
     });
   }
 }

@@ -1,62 +1,68 @@
-function dijkstra(graph, startNode, endNode) {
-  const distance = {};
-  const visited = {};
-  const previous = {};
+const getLowestCost = (costs, visited) => {
+  const nodes = Object.keys(costs);
+
+  const lowestCostNode = nodes.reduce((lowest, node) => {
+    if (lowest === null && !visited.includes(node)) {
+      lowest = node;
+    }
+    if (costs[node] < costs[lowest] && !visited.includes(node)) {
+      lowest = node;
+    }
+    return lowest;
+  }, null);
+
+  return lowestCostNode;
+};
+
+export default function shortestPath(graph, start, finish) {
   const nodes = Object.keys(graph);
-  const queue = [...nodes];
-
-  nodes.forEach((node) => {
-    distance[node] = node === startNode ? 0 : Infinity;
-    visited[node] = false;
-    previous[node] = null;
-  });
-
-  while (queue.length > 0) {
-    queue.sort((a, b) => distance[a] - distance[b]);
-    const currentNode = queue.shift();
-
-    if (currentNode === endNode) {
-      return {
-        distance: distance[endNode],
-        path: constructPath(previous, startNode, endNode),
-      };
+  const costs = {};
+  for (const node of nodes) {
+    if (node == start) {
+      costs[node] = 0;
+    } else {
+      costs[node] = Infinity;
     }
+  }
 
-    if (distance[currentNode] === Infinity) {
-      break; // Unreachable nodes
-    }
+  const parentNodes = { finish: null };
+  for (let child in graph[start]) {
+    parentNodes[child] = start;
+    costs[child] = graph[start][child];
+  }
 
-    visited[currentNode] = true;
+  const visited = [start];
 
-    for (const neighborWeightPair of graph[currentNode]) {
-      const [neighbor, weight] = neighborWeightPair.split(":");
-      if (!visited[neighbor]) {
-        const tentativeDistance = distance[currentNode] + parseInt(weight);
+  let node = start;
 
-        if (tentativeDistance < distance[neighbor]) {
-          distance[neighbor] = tentativeDistance;
-          previous[neighbor] = currentNode;
-        }
+  while (node) {
+    const nodeCost = costs[node];
+    const childNodes = graph[node];
+
+    for (let child in childNodes) {
+      if (visited.includes(child)) {
+        continue;
+      }
+      let childCost = childNodes[child];
+      let costFromStartToChild = nodeCost + childCost;
+
+      if (costs[child] > costFromStartToChild) {
+        costs[child] = costFromStartToChild;
+        parentNodes[child] = node;
       }
     }
+    visited.push(node);
+    node = getLowestCost(costs, visited);
   }
 
-  return { distance: Infinity, path: [] };
-}
+  const path = [finish];
+  let parentNode = parentNodes[finish];
 
-function constructPath(previous, startNode, endNode) {
-  const path = [];
-  let currentNode = endNode;
-
-  while (currentNode !== null) {
-    path.unshift(currentNode);
-    currentNode = previous[currentNode];
+  while (parentNode) {
+    path.push(parentNode);
+    parentNode = parentNodes[parentNode];
   }
+  path.reverse();
 
   return path;
 }
-
-module.exports = {
-  dijkstra,
-  constructPath,
-};
