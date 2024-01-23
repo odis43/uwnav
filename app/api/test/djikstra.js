@@ -15,6 +15,8 @@ const getLowestCost = (costs, visited) => {
 };
 
 export default function shortestPath(graph, start, finish) {
+  start = start.toLowerCase();
+  finish = finish.toLowerCase();
   const nodes = Object.keys(graph);
   const costs = {};
   for (const node of nodes) {
@@ -64,5 +66,9 @@ export default function shortestPath(graph, start, finish) {
   }
   path.reverse();
 
-  return path;
+  const len = path.length;
+  return {
+    "path": path,
+    "len": len,
+  };
 }

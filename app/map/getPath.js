@@ -1,5 +1,5 @@
 export default async function getPath(nodeA, nodeB) {
-  const url = "http://localhost:3000/api/test";
+  const url = "https://uwnav.netlify.app/api/test";
 
   const data = {
     nodeA: nodeA,

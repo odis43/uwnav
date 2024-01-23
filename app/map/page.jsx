@@ -4,7 +4,8 @@ import getPath from "./getPath";
 import MapChart from "./graph";
 
 export default function Map() {
-  const [data, setData] = useState([]);
+  const [path, setPath] = useState([]);
+  const [len, setLen] = useState();
 
   function handlePath(formData) {
     const fetchData = async () => {
@@ -12,8 +13,8 @@ export default function Map() {
         const nodeA = formData.get("A");
         const nodeB = formData.get("B");
         const result = await getPath(nodeA, nodeB);
-        console.log(result.path);
-        setData(result.path);
+        setPath(result.path);
+        setLen(result.len);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -40,7 +41,7 @@ export default function Map() {
                   htmlFor="first-name"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  First name
+                  Start
                 </label>
                 <div className="mt-2">
                   <input
@@ -58,7 +59,7 @@ export default function Map() {
                   htmlFor="last-name"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Last name
+                  End
                 </label>
                 <div className="mt-2">
                   <input
@@ -83,10 +84,11 @@ export default function Map() {
 
       <Suspense>
         <p className="justify-center mb-96">
-          {data
+          {path
             .map((item, index) => (index === 0 ? item : ` -> ${item}`))
             .join("")}
         </p>
+        <p>{len}</p>
       </Suspense>
     </main>
   );

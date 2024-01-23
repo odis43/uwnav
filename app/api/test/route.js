@@ -10,8 +10,6 @@ export async function POST(req) {
   if (result.length === 0) {
     return NextResponse.json({ path: "no path found" });
   } else {
-    return NextResponse.json({
-      path: result,
-    });
+    return NextResponse.json(result);
   }
 }
