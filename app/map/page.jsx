@@ -80,7 +80,7 @@ export default function Map() {
           </div>
         </div>
       </form>
-      <MapChart />
+
       <Suspense>
         <p className="justify-center mb-96">
           {data
