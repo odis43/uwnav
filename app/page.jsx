@@ -9,15 +9,33 @@ export default function Home() {
     router.push("/map");
   };
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
+    <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-white text-black">
+      <div className="relative place-items-center">
         <div>
-          <h1>Welcome to UWNAV</h1>
+          <h1 className="font-bold text-5xl">Welcome to UWNAV</h1>
         </div>
-        <div>
-          <button onClick={handleClick} className="border-2 border-black">
-            Search
-          </button>
+
+        <button
+          onClick={handleClick}
+          className=" btn border-2 border-black mt-4"
+        >
+          Go
+        </button>
+
+        <div className="mt-24">
+          <p>
+            Still a work in progress, this current build is the MVP able to do
+            path finding given 2 buildings. Next steps are in order of priority:
+          </p>
+          <l className="mt-4">
+            <li>Building an interactive map with pathing</li>
+            <li>
+              Developing intermediary paths for any given path which includes
+              details like stairwell usages and exit points that are not visable
+              on the map
+            </li>
+            <li>Designing the UI for a cleaner UX</li>
+          </l>
         </div>
       </div>
     </main>

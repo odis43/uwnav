@@ -26,7 +26,7 @@ export default function Map() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between w-full h-full">
+    <main className="flex min-h-screen flex-col items-center justify-between w-full h-full bg-white">
       <form action={handlePath} className="mt-32">
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-12">
@@ -51,7 +51,7 @@ export default function Map() {
                     name="A"
                     id="first-name"
                     autoComplete="given-name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -69,14 +69,11 @@ export default function Map() {
                     name="B"
                     id="last-name"
                     autoComplete="family-name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
-              <button
-                className="cursor-pointer border-2 border-black"
-                type="submit"
-              >
+              <button type="submit" className="btn">
                 Search
               </button>
             </div>
@@ -85,17 +82,17 @@ export default function Map() {
       </form>
 
       <Suspense>
-        <p className="justify-center mb-96">
+        <p className="justify-center text-black">
           {path
             .map((item, index) => (index === 0 ? item : ` -> ${item}`))
             .join("")}
         </p>
-        <p>{len}</p>
+        <p className="text-black">{len}</p>
       </Suspense>
       <Image
         src="/images/tunnels.jpeg"
-        width={400}
-        height={400}
+        width={600}
+        height={200}
         alt="Tunnels"
       />
     </main>
