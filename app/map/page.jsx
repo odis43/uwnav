@@ -2,6 +2,8 @@
 import React, { useState, Suspense, useEffect } from "react";
 import getPath from "./getPath";
 import MapChart from "./graph";
+import Image from "next/image";
+import { tunnels } from "/public/images/tunnels.jpeg";
 
 export default function Map() {
   const [path, setPath] = useState([]);
@@ -90,6 +92,12 @@ export default function Map() {
         </p>
         <p>{len}</p>
       </Suspense>
+      <Image
+        src="/images/tunnels.jpeg"
+        width={400}
+        height={400}
+        alt="Tunnels"
+      />
     </main>
   );
 }
